@@ -1,0 +1,26 @@
+name: Run OTP Bot (6 Hours)
+
+on:
+  workflow_dispatch:  # হাতে চালানোর জন্য
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # ⏱️ সর্বোচ্চ ৬ ঘণ্টা
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests websockets pytz
+
+      - name: Run OTP Listener
+        run: python otp_listener.py
